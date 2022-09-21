@@ -2,6 +2,7 @@
 
 CREATE DATABASE clinic_db;
 
+-- \c clinic_db;
 
 CREATE TABLE patients(
     id INT NOT NULL generated always as identity,
@@ -9,7 +10,6 @@ CREATE TABLE patients(
     date_of_birth date,
     primary key(id)
 );
-
 
 CREATE TABLE medical_histories(
     id INT NOT NULL generated always as identity,
@@ -47,4 +47,12 @@ CREATE TABLE invoice_items(
     primary key(id),
     foreign key(invoice_id) references invoices(id),
     foreign key(treatment_id) references treatments(id)
+);
+
+CREATE TABLE diagnostic(
+    treat_id INT NOT NULL,
+    med_hist_id INT NOT NULL,
+    PRIMARY KEY(treat_id, med_hist_id)
+    foreign key(treat_id) references treatments(id),
+    foreign key(med_hist_id) references medical_historie(id),
 );
